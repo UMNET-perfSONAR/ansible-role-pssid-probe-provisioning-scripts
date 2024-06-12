@@ -1,0 +1,20 @@
+# install provision script on GUI server
+
+---
+
+# create directory for provision.sh
+# status -- checked
+- name: Ensure directory exists
+  file:
+    path: /usr/lib/exec/pssid/
+    state: directory
+    mode: '0755'
+
+
+# download provision.sh to directory
+# status -- checked
+- name: Download provision.sh script from GitHub
+      get_url:
+        url: https://raw.githubusercontent.com/UMNET-perfSONAR/ansible-role-pssid-probe-provisioning-scripts/lu-implement-role-probe-provision/provision.sh
+        dest: /usr/lib/exec/pssid/
+        mode: '0755'

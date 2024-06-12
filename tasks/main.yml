@@ -1,0 +1,4 @@
+---
+- import_tasks: install-ansible.yml
+- import_tasks: install-provision-script.yml
+- import_tasks: download-ansible-playbook-pssid-daemon.yml

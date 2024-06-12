@@ -1,52 +1,34 @@
 #!/bin/bash
 
-# Install Ansible
-install_ansible() {
-    echo "Installing Ansible..."
-    if command -v ansible-playbook &>/dev/null; then
-        echo "Ansible is already installed."
-    else
-        if command -v apt-get &>/dev/null; then
-            sudo apt-get update
-            sudo apt-get install -y ansible
-        elif command -v yum &>/dev/null; then
-            sudo yum install -y ansible
-        else
-            echo "Unsupported package manager. Please install Ansible manually."
-            exit 1
-        fi
-    fi
-}
+# check if two arguments are provided
+# arg_1 is H/G, arg_2 is Name
+if [ "$#" -ne 2 ]; then
+    echo "Usage: $0 <ARG1> <ARG2>"
+    exit 1
+fi
 
-# Download playbook
-download_playbook() {
-    playbook_url="https://github.com/UMNET-perfSONAR/ansible-playbook-pssid-daemon.git"
-    playbook_dest="/usr/bin/ansible-playbook-pssid-daemon"
-    echo "Downloading playbook from $playbook_url to $playbook_dest..."
-    wget -O "$playbook_dest" "$playbook_url"
-}
+ARG1=$1
+ARG2=$2
 
-# Download roles
-download_roles() {
-    roles=(ansible-role-pssid-VT-tools ansible-role-pssid-daemon ansible-role-perfsonar-toolkit)
-    for role in "${roles[@]}"; do
-        echo "Downloading role $role..."
-        ansible-galaxy install git+https://github.com/UMNET-perfSONAR/$role.git
-    done
-}
+# Change to the bootstrap playbook directory
+cd /usr/lib/pssid/playbooks/ansible-playbook-probe-bootstrap || exit 1
 
-# Run playbook
-run_playbook() {
-    playbook_path="/usr/bin/ansible-playbook-pssid-daemon/ansible-playbook-passid-probe-provision.yml"
-    echo "Running playbook $playbook_path..."
-    ansible-playbook "$playbook_path"
-}
+# Run the bootstrap playbook
+ansible-playbook \
+    --inventory ../../pssid_inventory/inventory
+    --become \
+    --become-method su \
+    --become-user root \
+    --ask-become-pass \
+    bootstrap.yml
 
-# Main
-install_ansible
-download_playbook
-download_roles
-run_playbook
+# Change to the pssid daemon playbook directory
+cd /usr/lib/pssid/playbooks/ansible-playbook-pssid-daemon || exit 1
 
-echo "Ansible installation, playbook download,execution and provision completed."
-
+# run the ansible-playbook-pssid-daemon playbook with the provided arguments
+# $$ verify the path && roles
+ansible-playbook \
+    ansible-playbook-pssid-daemon.yml \
+    --inventory ../../pssid_inventory/inventory
+    --limit "$ARG1" \
+    -e "name=$ARG2"
