@@ -19,10 +19,16 @@
     state: directory
     mode: '0755'
 
-# status -- unchecked (prompt authentication on commandline)
+# status -- checked
 - name: Install roles using ansible-galaxy
   command:
-    cmd: ansible-galaxy install -f -r requirements.yml
+
+    cmd: ansible-galaxy install -r requirements.yml --roles-path roles
+    # if not specify roles path, then /root/.ansible/roles
+    # may modify ansible.cfg in playbook --> 
+    # [defaults]
+    # roles_path = /path/to/roles/directory
+
   args:
     chdir: /usr/lib/pssid/playbooks/ansible-playbook-pssid-daemon/
 

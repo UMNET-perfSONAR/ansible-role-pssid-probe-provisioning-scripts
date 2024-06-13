@@ -13,6 +13,8 @@ ARG2=$2
 # Change to the bootstrap playbook directory
 cd /usr/lib/pssid/playbooks/ansible-playbook-probe-bootstrap || exit 1
 
+
+# run the below by hand currently
 # Run the bootstrap playbook
 ansible-playbook \
     --inventory ../../pssid_inventory/inventory
@@ -21,6 +23,8 @@ ansible-playbook \
     --become-user root \
     --ask-become-pass \
     bootstrap.yml
+
+# $$ ansible vaults ??
 
 # Change to the pssid daemon playbook directory
 cd /usr/lib/pssid/playbooks/ansible-playbook-pssid-daemon || exit 1

@@ -15,6 +15,6 @@
 # status -- checked
 - name: Download provision.sh script from GitHub
       get_url:
-        url: https://raw.githubusercontent.com/UMNET-perfSONAR/ansible-role-pssid-probe-provisioning-scripts/lu-implement-role-probe-provision/provision.sh
+        url: https://raw.githubusercontent.com/UMNET-perfSONAR/ansible-role-pssid-probe-provisioning-scripts/lu-implement-role-probe-provision/files/provision.sh
         dest: /usr/lib/exec/pssid/
         mode: '0755'
