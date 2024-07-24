@@ -2,14 +2,14 @@
 Ansible modules and other scripts needed to provision and configure pSSID probes from the GUI server.
 
 # Components
-#### install-ansible.yml
-Install the latest ansible on the GUI server. 
+`install-ansible.yml`
+- Install the latest ansible on the GUI server. 
 
-#### install-provision-script.yml
-Install provision.sh on the GUI server. 
+`install-provision-script.yml`
+- Install provision.sh on the GUI server. 
 
-#### install-ansible-playbook-pssid-daemon.yml
-Download on the GUI server ansible-playbook-pssid-daemon, ansible-role-pssid-daemon, ansible-role-pssid-VT-tools, ansible-role-perfsonar-testpoint
+`install-ansible-playbook-pssid-daemon.yml`
+- Download on the GUI server ansible-playbook-pssid-daemon, ansible-role-pssid-daemon, ansible-role-pssid-VT-tools, ansible-role-perfsonar-testpoint
 
 # Requirements
 Supported Linux versions:
