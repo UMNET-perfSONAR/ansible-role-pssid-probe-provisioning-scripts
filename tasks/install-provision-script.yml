@@ -6,7 +6,7 @@
 # status -- checked
 - name: Ensure directory exists
   file:
-    path: /usr/lib/exec/pssid/
+    path: {{ provision_script_dir }}
     state: directory
     mode: '0755'
 
@@ -16,5 +16,5 @@
 - name: Download provision.sh script from GitHub
       get_url:
         url: https://raw.githubusercontent.com/UMNET-perfSONAR/ansible-role-pssid-probe-provisioning-scripts/lu-implement-role-probe-provision/files/provision.sh
-        dest: /usr/lib/exec/pssid/
+        dest: {{ provision_script_dir }}
         mode: '0755'
