@@ -1,0 +1,2 @@
+# Default installation path
+ansible_probe_provisioning_install_path: "/usr/lib/pssid/playbooks"
