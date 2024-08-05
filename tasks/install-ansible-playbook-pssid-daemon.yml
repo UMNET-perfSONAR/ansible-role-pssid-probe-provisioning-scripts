@@ -1,0 +1,37 @@
+# ansible-playbook-pssid-daemon contains requirements.yml which has the source of three dependent roles
+# test command: ansible-playbook -i "198.111.226.184," test-playbook.yml --become   --become-method su   --become-user root   --ask-become-pass
+
+---
+
+# clone ansible-playbook-pssid-daemon repo
+# status -- checked
+- name: Clone ansible-playbook-pssid-daemon repository
+  git:
+    repo: https://github.com/UMNET-perfSONAR/ansible-playbook-pssid-daemon.git
+    dest: {{ ansible_probe_provisioning_install_path }}/ansible-playbook-pssid-daemon
+    version: main  # replace with branch name in dev mode  <lu-implement-playbook-pssid-daemon>
+
+# create role directory
+# status -- checked
+- name: Ensure roles directory exists
+  file:
+    path: {{ ansible_probe_provisioning_install_path }}/ansible-playbook-pssid-daemon/roles
+    state: directory
+    mode: '0755'
+
+# status -- checked
+- name: Install roles using ansible-galaxy
+  command:
+
+    cmd: ansible-galaxy install -r requirements.yml --roles-path roles
+    # test the following in the future because the ansible.cfg file is set. 
+    # cmd: ansible-galaxy install -r requirements.yml
+
+    # if not specify roles path, then /root/.ansible/roles
+    # may modify ansible.cfg in playbook --> 
+    # [defaults]
+    # roles_path = /path/to/roles/directory
+
+  args:
+    chdir: {{ ansible_probe_provisioning_install_path }}/ansible-playbook-pssid-daemon/
+
