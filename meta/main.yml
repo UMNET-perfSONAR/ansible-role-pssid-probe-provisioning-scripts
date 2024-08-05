@@ -1,0 +1,12 @@
+galaxy_info:
+  role_name: ansible-role-pssid-probe-pronisioning-scrpts
+  author: UMNET-perfSONAR
+  description: Minimal metadata for the role
+  license: Apache 2.0
+  min_ansible_version: 2.9
+  platforms:
+    - name: Ubuntu
+      versions:
+        - focal
+        - jammy
+dependencies: []
