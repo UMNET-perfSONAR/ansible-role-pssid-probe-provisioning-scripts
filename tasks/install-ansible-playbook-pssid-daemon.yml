@@ -8,14 +8,14 @@
 - name: Clone ansible-playbook-pssid-daemon repository
   git:
     repo: https://github.com/UMNET-perfSONAR/ansible-playbook-pssid-daemon.git
-    dest: {{ ansible_probe_provisioning_install_path }}/ansible-playbook-pssid-daemon
+    dest: "{{ ansible_probe_provisioning_install_path }}/ansible-playbook-pssid-daemon"
     version: main  # replace with branch name in dev mode  <lu-implement-playbook-pssid-daemon>
 
 # create role directory
 # status -- checked
 - name: Ensure roles directory exists
   file:
-    path: {{ ansible_probe_provisioning_install_path }}/ansible-playbook-pssid-daemon/roles
+    path: "{{ ansible_probe_provisioning_install_path }}/ansible-playbook-pssid-daemon/roles"
     state: directory
     mode: '0755'
 
@@ -33,5 +33,4 @@
     # roles_path = /path/to/roles/directory
 
   args:
-    chdir: {{ ansible_probe_provisioning_install_path }}/ansible-playbook-pssid-daemon/
-
+    chdir: "{{ ansible_probe_provisioning_install_path }}/ansible-playbook-pssid-daemon/"
